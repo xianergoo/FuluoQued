@@ -8,14 +8,15 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
+
 @app.route('/home/users/<string:name>/posts/<int:id>')
 def hello(name, id):
-    return "Hello, " +  name + ", your id is: " + str(id)
+    return "Hello, " + name + ", your id is: " + str(id)
+
 
 @app.route('/onlyget', methods=['GET'])
 def get_req():
     return "You can only get this weboage."
-
 
 
 if __name__ == "__main__":
