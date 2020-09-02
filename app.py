@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, redirect, url_for, request
 from flask import render_template
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
@@ -37,9 +37,22 @@ def index():
 def posts():
     return render_template('posts.html', posts=all_posts)
 
-@app.route('/home/users/<string:name>/posts/<int:id>')
+@app.route('/success/<name>')
+def success(name):
+   return 'welcome %s' % name
+
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    if request.method == 'POST':
+        user = request.form['nm']
+        return redirect(url_for('success', name= user))
+    else: 
+        return render_template('login.html')
+
+
+@app.route('/home/users/<string:name>')
 def hello(name, id):
-    return "Hello, " + name + ", your id is: " + str(id)
+    return "Hello, " + name
 
 
 @app.route('/onlyget', methods=['GET'])
